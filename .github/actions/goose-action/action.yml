@@ -12,7 +12,7 @@ runs:
     - name: 'Run Goose AI'
       shell: bash
       run: |
-        echo "${{ inputs.profile }}" > /root/.goose/config/profiles.yaml
+        echo "${{ inputs.profile }}" | sudo tee /root/.goose/config/profiles.yaml > /dev/null
         echo "Running Goose Session"
         /entrypoint.sh
 env:
