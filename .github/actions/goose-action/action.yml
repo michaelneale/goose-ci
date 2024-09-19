@@ -1,9 +1,6 @@
+---
 name: 'Goose AI Action'
 description: 'Sets up Goose AI using pipx'
-runs:
-  using: 'docker'
-  image: 'Dockerfile'
-
 inputs:
   profile:
     description: 'Profile configuration for goose-ai'

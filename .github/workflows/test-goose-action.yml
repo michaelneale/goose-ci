@@ -1,19 +1,21 @@
-name: Test Goose Action
+name: Validate Goose Action
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+on: [push, pull_request]
 
 jobs:
-  test-goose-action:
+  validate-goose:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Run Goose Action
-      uses: ./.github/actions/goose-action
-      env:
-        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.12'
+
+
+      - name: Run Goose Action
+        uses: ./.github/actions/goose-action
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
