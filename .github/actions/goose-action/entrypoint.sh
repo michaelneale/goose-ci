@@ -3,7 +3,7 @@
 
 # Execute the command passed to the Docker container
 # Start the Goose session and run it in the background
-goose session start --plan /app/plan.yaml
+goose session start --plan /app/plan.yaml &
 
 # Poll for success or failure file
 while true; do
