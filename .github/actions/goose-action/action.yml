@@ -1,0 +1,19 @@
+name: 'Goose AI Action'
+description: 'Sets up Goose AI using pipx'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+
+inputs:
+  profile:
+    description: 'Profile configuration for goose-ai'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: 'Run Goose AI'
+      run: /entrypoint.sh
+env:
+  PROFILE: ${{ inputs.profile }}
+  PLAN: $(cat .github/actions/goose-action/plan.yaml)

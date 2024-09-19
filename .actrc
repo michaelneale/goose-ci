@@ -1,0 +1,2 @@
+-r ubuntu-latest=nektos/act-environments-ubuntu:18.04
+-s OPENAI_API_KEY=<your_openai_api_key_value>
