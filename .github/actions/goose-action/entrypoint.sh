@@ -10,11 +10,11 @@ GOOSE_PID=$!
 while true; do
     if [ -f /app/success ]; then
         echo "Goose session succeeded"
-        kill -SIGTERM $GOOSE_PID  # Gracefully stop Goose session
+        kill -9 $GOOSE_PID  # Gracefully stop Goose session
         exit 0
     elif [ -f /app/failure ]; then
         echo "Goose session failed"
-        kill -SIGTERM $GOOSE_PID  # Gracefully stop Goose session
+        kill -9 $GOOSE_PID  # Gracefully stop Goose session
         exit 1
     fi
     sleep 10  # Adjust the sleep interval as needed

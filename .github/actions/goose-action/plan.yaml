@@ -5,6 +5,5 @@ kickoff_message: |
 
 tasks:
  - look at current project context to see how to build and run tests, looking at any build files, workflow files
- - if you can work out how to test it, then attempt the following enhancement, otherwise exit as a failure
- - add a welcome message on start that says "boop mcgoop" to main.dart
+ - run any python file you find and see if it works 
  - if successful write  to a file /app/success, and if a failure to /app/failure
