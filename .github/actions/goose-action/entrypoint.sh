@@ -5,7 +5,7 @@ mv /root/.goose/config/profiles.yaml /root/.goose/config/profile.yaml
 
 # Execute the command passed to the Docker container
 # Start the Goose session and run it in the background
-goose session start --plan plan.yaml &
+goose version
 
 # Poll for success or failure file
 while true; do

@@ -12,8 +12,8 @@ runs:
     - name: 'Run Goose AI'
       shell: bash
       run: |
-        echo "${{ inputs.profile }}" | sudo tee /root/.goose/config/profiles.yaml > /dev/null
-        echo "Running Goose Session"
+        cp .github/actions/goose-action/profiles.yaml /root/.goose/config/profiles.yaml
+        cp .github/actions/goose-action/plan.yaml /root/.goose/config/plan.yaml
         /entrypoint.sh
 env:
   PLAN: $(cat .github/actions/goose-action/plan.yaml)
