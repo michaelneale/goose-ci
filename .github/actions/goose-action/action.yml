@@ -11,7 +11,9 @@ runs:
   steps:
     - name: 'Run Goose AI'
       shell: bash
-      run: /entrypoint.sh
+      shell: bash
+      run: |
+        echo "${{ inputs.profile }}" > /root/.goose/config/profiles.yaml
+        /entrypoint.sh
 env:
-  PROFILE: ${{ inputs.profile }}
   PLAN: $(cat .github/actions/goose-action/plan.yaml)
