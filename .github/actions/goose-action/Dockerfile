@@ -3,7 +3,7 @@ FROM python:3.12.6-slim
 WORKDIR /app
 
 RUN pip install pipx
-RUN pipx ensurepath
+RUN pipx ensurepath && /root/.local/bin/pipx ensurepath && ln -s /root/.local/bin/* /usr/local/bin/
 
 RUN pipx install goose-ai
 
