@@ -1,22 +1,11 @@
 ---
-name: 'Goose AI Action'
-description: 'Sets up Goose AI using pipx'
+name: "Goose AI Action"
+description: "Sets up Goose AI with pipx"
 inputs:
   profile:
-    description: 'Profile configuration for goose-ai'
+    description: 'Profile configuration for Goose AI'
     required: true
 
 runs:
-  using: 'composite'
-  steps:
-    - name: 'Run Goose AI'
-      shell: bash
-      run: |
-        sudo mkdir -p /root/.goose/config
-        sudo cp .github/actions/goose-action/profiles.yaml /root/.goose/config/profiles.yaml
-        sudo cp .github/actions/goose-action/plan.yaml /root/.goose/config/plan.yaml
-        echo "Running Goose Session"
-        sudo /entrypoint.sh
-        /entrypoint.sh
-env:
-  PLAN: $(cat .github/actions/goose-action/plan.yaml)
+  using: "docker"
+  image: "Dockerfile"
