@@ -12,8 +12,11 @@ runs:
     - name: 'Run Goose AI'
       shell: bash
       run: |
-        cp .github/actions/goose-action/profiles.yaml /root/.goose/config/profiles.yaml
-        cp .github/actions/goose-action/plan.yaml /root/.goose/config/plan.yaml
+        sudo mkdir -p /root/.goose/config
+        sudo cp .github/actions/goose-action/profiles.yaml /root/.goose/config/profiles.yaml
+        sudo cp .github/actions/goose-action/plan.yaml /root/.goose/config/plan.yaml
+        echo "Running Goose Session"
+        sudo /entrypoint.sh
         /entrypoint.sh
 env:
   PLAN: $(cat .github/actions/goose-action/plan.yaml)
