@@ -10,6 +10,7 @@ runs:
   using: 'composite'
   steps:
     - name: 'Run Goose AI'
+      shell: bash
       run: /entrypoint.sh
 env:
   PROFILE: ${{ inputs.profile }}
