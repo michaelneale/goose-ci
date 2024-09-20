@@ -16,7 +16,8 @@ To use:
 
 ```
 
-It will do its best to complete the task as part of your workflow (with the tools it has) and then if it succeeds, it succeeds. 
-The output could be used to open a pull request, if triggered from a github issue for example. 
+It will do its best to complete the task as part of your workflow (with the tools it has) and return success if it was successful. 
+
+If it succeeds, it will have enhanced your code, and then you could open a pull request, if triggered from a github issue for example. 
 
 TODO: actual examples
