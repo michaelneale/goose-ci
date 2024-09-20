@@ -29,7 +29,7 @@ runs:
       shell: bash
 
     - name: Install Goose AI
-      run: pipx install goose-cli
+      run: pipx install goose-ai
       shell: bash
 
     - name: Install additional tools
