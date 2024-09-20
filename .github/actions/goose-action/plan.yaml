@@ -6,5 +6,5 @@ tasks:
  - you are running in a CI style environment and aim to try to complete the task assigned
  - keep iterating as best you can to completion until the task is satisfied, and tests are run.
  - Task -> {TASK}
- - Test instructions to follow to validate the task -> {VALIDATION}
+ - Test instructions -> {VALIDATION}
  - if successful write to a file /app/success, and if a failure to /app/failure

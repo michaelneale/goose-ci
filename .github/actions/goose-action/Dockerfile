@@ -13,8 +13,6 @@ RUN pipx install goose-ai
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-# Copy profiles.yaml and plan.yaml directly
-COPY profiles.yaml /github/home/.config/goose/profiles.yaml
 COPY plan.yaml /app/plan.yaml
 
 ENTRYPOINT ["/entrypoint.sh"]
