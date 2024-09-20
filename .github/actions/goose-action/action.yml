@@ -7,6 +7,9 @@ inputs:
   task_request:
     description: 'Task request for Goose AI to complete'
     required: true
+  openai_api_key:
+    description: 'OpenAI API Key for authentication'
+    required: true
 runs:
   using: "composite"
   steps:
@@ -51,4 +54,4 @@ runs:
       run: /entrypoint.sh
       shell: bash
       env:
-        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        OPENAI_API_KEY: ${{ inputs.openai_api_key }}
