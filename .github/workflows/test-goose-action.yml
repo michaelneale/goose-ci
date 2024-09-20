@@ -25,6 +25,6 @@ jobs:
       - name: Run Goose Action
         uses: ./.github/actions/goose-action
         with:
-          task_request: "convert the python app to java and test that it still says hello"
+          task_request: "run java to check the version"
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
