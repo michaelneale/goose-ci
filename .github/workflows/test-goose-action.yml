@@ -12,19 +12,18 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      - name: Set up JDK
-        uses: actions/setup-java@v2
-        with:
-          distribution: 'adopt'
-          java-version: '11'
-          java-package: 'jdk'
 
-      - name: Verify Java installation
-        run: java -version
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2' # You can specify the Ruby version you need
+
+      - name: Verify Ruby installation
+        run: ruby -v
 
       - name: Run Goose Action
         uses: ./.github/actions/goose-action
         with:
-          task_request: "run java to check the version"
+          task_request: "run ruby to check the version"
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
