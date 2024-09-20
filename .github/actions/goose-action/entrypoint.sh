@@ -1,7 +1,6 @@
 #!/bin/sh
 
 # Access the 'task_request' input
-TASK_REQUEST=${INPUT_TASK_REQUEST}
 echo "Task Request: $TASK_REQUEST"
 
 # Replace newlines with spaces in TASK_REQUEST
