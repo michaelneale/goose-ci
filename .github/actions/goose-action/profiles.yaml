@@ -1,8 +1,0 @@
-default:
-  provider: openai
-  processor: gpt-4o
-  accelerator: gpt-4o-mini
-  moderator: summarize
-  toolkits:
-  - name: developer
-    requires: {}

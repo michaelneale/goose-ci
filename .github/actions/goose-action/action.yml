@@ -5,6 +5,10 @@ inputs:
   profile:
     description: 'Profile configuration for Goose AI'
     required: true
+  task_request:
+    description: 'Task request for Goose AI to complete'
+    required: true
+
 
 runs:
   using: "docker"
