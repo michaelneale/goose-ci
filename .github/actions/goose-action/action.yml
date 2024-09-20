@@ -40,7 +40,7 @@ runs:
       run: |
         cp .github/actions/goose-action/plan.yaml plan.yaml
         cp .github/actions/goose-action/entrypoint.sh entrypoint.sh
-        chmod +x /entrypoint.sh
+        chmod +x entrypoint.sh
       shell: bash
 
     - name: Run goose
