@@ -12,15 +12,15 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
+      - name: Set up Java
+        uses: actions/setup-java@v2
         with:
-          python-version: '3.12'
+          distribution: 'adopt'
+          java-version: '11'
 
       - name: Run Goose Action
         uses: ./.github/actions/goose-action
         with:
-          task_request: "change to say hello cruel world in python and test it"
+          task_request: "convert the python app to java and test that it still says hello"
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-
