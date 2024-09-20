@@ -33,7 +33,7 @@ runs:
       shell: bash
 
     - name: Install additional tools
-      run: sudo apt-get update && \
+      run: apt-get update && \
                sudo apt-get install -y ripgrep curl git jq wget && \
                sudo rm -rf /var/lib/apt/lists/*
       shell: bash
