@@ -10,6 +10,15 @@ ENV PATH=$PATH:/root/.local/bin
 
 RUN pipx install goose-ai
 
+# Install ripgrep, curl, git, jq, and wget
+RUN apt-get update && \
+    apt-get install -y ripgrep \
+                          curl \
+                          git \
+                          jq \
+                          wget && \
+    rm -rf /var/lib/apt/lists/*
+
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 

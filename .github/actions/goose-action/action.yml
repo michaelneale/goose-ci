@@ -1,15 +1,52 @@
----
 name: "Goose AI Action"
 description: "Sets up Goose AI with pipx"
 inputs:
-  profile:
-    description: 'Profile configuration for Goose AI'
-    required: true
   task_request:
     description: 'Task request for Goose AI to complete'
     required: true
 
-
 runs:
-  using: "docker"
-  image: "Dockerfile"
+  using: "composite"
+  steps:
+    - name: Check out the repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.12.6'
+
+    - name: Install pipx
+      run: python -m pip install --user pipx
+      shell: bash
+
+    - name: Ensure pipx path
+      run: python -m pipx ensurepath
+      shell: bash
+
+    - name: Add pipx to PATH
+      run: echo "$HOME/.local/bin" >> $GITHUB_PATH
+      shell: bash
+
+    - name: Install Goose AI
+      run: pipx install goose-ai
+      shell: bash
+
+    - name: Install additional tools
+      run: sudo apt-get update && sudo apt-get install -y ripgrep curl git jq wget               
+      shell: bash
+
+    - name: Copy plan file and entrypoint script
+      run: |
+        cp .github/actions/goose-action/plan.yaml plan.yaml
+        cp .github/actions/goose-action/entrypoint.sh entrypoint.sh
+        chmod +x entrypoint.sh
+      shell: bash
+
+    - name: Run goose
+      run: ./entrypoint.sh
+      shell: bash
+      env:
+        TASK_REQUEST: ${{ inputs.task_request }}
+
+      
