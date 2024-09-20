@@ -47,7 +47,7 @@ runs:
         chmod +x /entrypoint.sh
       shell: bash
 
-    - name: Run Goose
+    - name: Run entrypoint script
       run: /entrypoint.sh
       shell: bash
       env:
