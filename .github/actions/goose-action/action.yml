@@ -1,15 +1,10 @@
 name: "Goose AI Action"
 description: "Sets up Goose AI with pipx"
 inputs:
-  profile:
-    description: 'Profile configuration for Goose AI'
-    required: true
   task_request:
     description: 'Task request for Goose AI to complete'
     required: true
-  openai_api_key:
-    description: 'OpenAI API Key for authentication'
-    required: true
+
 runs:
   using: "composite"
   steps:
@@ -50,8 +45,7 @@ runs:
         chmod +x /entrypoint.sh
       shell: bash
 
-    - name: Run entrypoint script
+    - name: Run goose
       run: /entrypoint.sh
       shell: bash
-      env:
-        OPENAI_API_KEY: ${{ inputs.openai_api_key }}
+      
