@@ -11,6 +11,7 @@ sed -i "s/{TASK}/$TASK_REQUEST/g" plan.yaml
 
 # Start the Goose session in the background
 goose session start --plan plan.yaml &
+GOOSE_PID=$!
 
 # Poll for success or failure file
 while true; do
@@ -23,3 +24,8 @@ while true; do
     fi
     sleep 10  # Adjust the sleep interval as needed
 done
+
+# Ensure to kill Goose process at the end
+kill -9 $GOOSE_PID
+
+
