@@ -17,8 +17,10 @@ jobs:
         with:
           python-version: '3.12'
 
-
       - name: Run Goose Action
         uses: ./.github/actions/goose-action
+        with:
+          task_request: "{ your_task_request_parameter }"
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
