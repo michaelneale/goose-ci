@@ -20,7 +20,7 @@ jobs:
       - name: Run Goose Action
         uses: ./.github/actions/goose-action
         with:
-          task_request: "{ your_task_request_parameter }"
+          task_request: "enhance to be awesome QR codes and run just test"
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 

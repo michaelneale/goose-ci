@@ -4,6 +4,7 @@ kickoff_message: |
     exit when finished or attempt is finished after trying.
 
 tasks:
- - look at current project context to see how to build and run tests, looking at any build files, workflow files
- - run any python file you find and see if it works 
+ - you are running in a CI style environment and aim to try to complete the task assigned
+ - keep iterating as best you can to completion until the task is satisfied (which may mean tests run successfully)
+ - {TASK}
  - if successful write  to a file /app/success, and if a failure to /app/failure
