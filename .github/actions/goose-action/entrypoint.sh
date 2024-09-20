@@ -2,18 +2,13 @@
 
 # Access the 'task_request' input
 TASK_REQUEST=${INPUT_TASK_REQUEST}
-VALIDATION=${INPUT_VALIDATION}
 echo "Task Request: $TASK_REQUEST"
 
 # Replace newlines with spaces in TASK_REQUEST
 TASK_REQUEST=$(echo $TASK_REQUEST | tr '\n' ' ')
-VALIDATION=$(echo $VALIDATION | tr '\n' ' ')
 
 # Replace {TASK} in plan.yaml with the TASK_REQUEST value
 sed -i "s/{TASK}/$TASK_REQUEST/g" /app/plan.yaml
-
-sed -i "s/{VALIDATION}/$VALIDATION/g" /app/plan.yaml
-
 
 # Start the Goose session in the background
 goose session start --plan /app/plan.yaml &

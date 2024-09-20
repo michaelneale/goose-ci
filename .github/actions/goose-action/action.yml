@@ -8,10 +8,6 @@ inputs:
   task_request:
     description: 'Task request for Goose AI to complete'
     required: true
-  tests:
-    description: 'Description of how to run tests for validation'
-    required: true
-
 
 
 runs:
