@@ -38,12 +38,15 @@ runs:
 
     - name: Copy plan file and entrypoint script
       run: |
-        cp .github/actions/goose-action/plan.yaml /app/plan.yaml
-        cp .github/actions/goose-action/entrypoint.sh /entrypoint.sh
+        cp .github/actions/goose-action/plan.yaml plan.yaml
+        cp .github/actions/goose-action/entrypoint.sh entrypoint.sh
         chmod +x /entrypoint.sh
       shell: bash
 
     - name: Run goose
       run: /entrypoint.sh
       shell: bash
+      env:
+        TASK_REQUEST: ${{ inputs.task_request }}
+
       

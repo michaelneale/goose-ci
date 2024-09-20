@@ -8,10 +8,10 @@ echo "Task Request: $TASK_REQUEST"
 TASK_REQUEST=$(echo $TASK_REQUEST | tr '\n' ' ')
 
 # Replace {TASK} in plan.yaml with the TASK_REQUEST value
-sed -i "s/{TASK}/$TASK_REQUEST/g" /app/plan.yaml
+sed -i "s/{TASK}/$TASK_REQUEST/g" plan.yaml
 
 # Start the Goose session in the background
-goose session start --plan /app/plan.yaml &
+goose session start --plan plan.yaml &
 
 # Poll for success or failure file
 while true; do
