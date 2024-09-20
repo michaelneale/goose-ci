@@ -1,0 +1,57 @@
+name: Issue to PR Goose Action
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  issue-to-pr-goose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2' # You can specify the Ruby version you need
+
+      - name: Verify Ruby installation
+        run: ruby -v
+
+      - name: Extract issue content
+        id: issue_data
+        run: echo "::set-output name=task_request::$(echo '${{ github.event.issue.body }}')"
+
+      - name: Create new branch
+        id: create_branch
+        run: |
+          ISSUE_TITLE_SLUG=$(echo "${{ github.event.issue.title }}" | sed -e 's/[[:space:]]/-/g')
+          BRANCH_NAME="issue-${{ github.event.issue.number }}-${ISSUE_TITLE_SLUG}"
+          git checkout -b "$BRANCH_NAME"
+          echo "::set-output name=branch_name::$BRANCH_NAME"
+
+      - name: Run Goose Action
+        id: run_goose
+        uses: ./.github/actions/goose-action
+        with:
+          task_request: "${{ steps.issue_data.outputs.task_request }}"
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+      - name: Push changes to new branch
+        if: ${{ steps.run_goose.conclusion == 'success' }}
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git push --set-upstream origin ${{ steps.create_branch.outputs.branch_name }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Pull Request
+        if: ${{ steps.run_goose.conclusion == 'success' }}
+        run: |
+          gh pr create --title "${{ github.event.issue.title }}" --body "This PR addresses the issue ${{ github.event.issue.number }}"
+          gh pr merge --auto
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
