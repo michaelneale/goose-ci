@@ -33,7 +33,7 @@ runs:
       shell: bash
 
     - name: Install additional tools
-      run: apt-get install -y ripgrep curl git jq wget               
+      run: sudo apt-get update && sudo apt-get install -y ripgrep curl git jq wget               
       shell: bash
 
     - name: Copy plan file and entrypoint script
