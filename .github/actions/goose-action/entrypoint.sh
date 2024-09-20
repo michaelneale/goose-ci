@@ -15,10 +15,10 @@ goose session start --plan plan.yaml &
 
 # Poll for success or failure file
 while true; do
-    if [ -f /app/success ]; then
+    if [ -f ./success ]; then
         echo "Goose session succeeded"
         exit 0
-    elif [ -f /app/failure ]; then
+    elif [ -f ./failure ]; then
         echo "Goose session failed"
         exit 1
     fi
