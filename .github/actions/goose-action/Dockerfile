@@ -1,4 +1,3 @@
-```Docker
 FROM python:3.12.6-slim
 
 WORKDIR /app
@@ -26,4 +25,3 @@ RUN chmod +x /entrypoint.sh
 COPY plan.yaml /app/plan.yaml
 
 ENTRYPOINT ["/entrypoint.sh"]
-```

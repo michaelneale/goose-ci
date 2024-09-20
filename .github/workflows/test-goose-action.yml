@@ -12,11 +12,15 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      - name: Set up Java
+      - name: Set up JDK
         uses: actions/setup-java@v2
         with:
           distribution: 'adopt'
           java-version: '11'
+          java-package: 'jdk'
+
+      - name: Verify Java installation
+        run: java -version
 
       - name: Run Goose Action
         uses: ./.github/actions/goose-action
