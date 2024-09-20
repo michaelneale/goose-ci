@@ -35,7 +35,7 @@ jobs:
         id: run_goose
         uses: ./.github/actions/goose-action
         with:
-          task_request: "${{ steps.issue_data.outputs.task_request }}"
+          task_request: check the ruby version after doing the following "${{ steps.issue_data.outputs.task_request }}"
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
