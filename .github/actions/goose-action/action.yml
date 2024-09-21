@@ -95,4 +95,4 @@ runs:
           
           **Task Request:**
           ${{ inputs.task_request }}
-        labels: ["automated-pr"]
+        labels: "automated-pr"
