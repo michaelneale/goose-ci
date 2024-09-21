@@ -1,9 +1,13 @@
 name: "Goose AI Action"
-description: "Sets up Goose AI with pipx"
+description: "Sets up Goose AI with pipx and optionally creates a PR"
 inputs:
   task_request:
     description: 'Task request for Goose AI to complete'
     required: true
+  create_pr:
+    description: 'Optionally create a Pull Request'
+    required: false
+    default: 'false'
 
 runs:
   using: "composite"
@@ -49,4 +53,46 @@ runs:
       env:
         TASK_REQUEST: ${{ inputs.task_request }}
 
-      
+    # Early exit if PR creation is not required
+    - name: Check if PR should be created
+      if: ${{ inputs.create_pr == 'false' }}
+      run: echo "No PR required, exiting after task completion." && exit 0
+      shell: bash
+
+    - name: Check for changes
+      run: |
+        git config --global user.email "your-bot-email@example.com"
+        git config --global user.name "your-bot-name"
+        if [ -n "$(git status --porcelain)" ]; then
+          git add .
+          git commit -m "Goose Action made changes"
+        else
+          echo "No changes detected"
+        fi
+      shell: bash
+
+    - name: Generate branch name from task request (first 12 characters)
+      id: sanitize-task
+      run: |
+        sanitized_branch_name=$(echo "${{ inputs.task_request }}" | tr -cd '[:alnum:]' | tr '[:upper:]' '[:lower:]' | cut -c 1-12)
+        echo "BRANCH_NAME=$sanitized_branch_name" >> $GITHUB_ENV
+      shell: bash
+
+    - name: Push changes to a new branch
+      if: steps.sanitize-task.outputs.branch_name != ''
+      run: git push origin ${{ env.BRANCH_NAME }}
+      shell: bash
+
+    - name: Create Pull Request
+      if: ${{ inputs.create_pr == 'true' }}
+      uses: peter-evans/create-pull-request@v5
+      with:
+        branch: ${{ env.BRANCH_NAME }}
+        commit-message: "Goose Action made changes"
+        title: "Goose Action PR: ${{ inputs.task_request }}"
+        body: |
+          This PR contains the changes made by the Goose Action.
+          
+          **Task Request:**
+          ${{ inputs.task_request }}
+        labels: ["automated-pr"]
