@@ -53,13 +53,8 @@ runs:
       env:
         TASK_REQUEST: ${{ inputs.task_request }}
 
-    # Early exit if PR creation is not required
-    - name: Check if PR should be created
-      if: ${{ inputs.create_pr == 'false' }}
-      run: echo "No PR required, exiting after task completion." && exit 0
-      shell: bash
-
     - name: Check for changes
+      if: ${{ inputs.create_pr == 'true' }}
       run: |
         git config --global user.email "your-bot-email@example.com"
         git config --global user.name "your-bot-name"
@@ -72,6 +67,7 @@ runs:
       shell: bash
 
     - name: Generate branch name from task request (first 12 characters)
+      if: ${{ inputs.create_pr == 'true' }}
       id: sanitize-task
       run: |
         sanitized_branch_name=$(echo "${{ inputs.task_request }}" | tr -cd '[:alnum:]' | tr '[:upper:]' '[:lower:]' | cut -c 1-12)
