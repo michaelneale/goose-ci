@@ -23,5 +23,6 @@ jobs:
         uses: ./.github/actions/goose-action
         with:
           task_request: "run ruby to check the version"
+          create_pr: 'true'
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
