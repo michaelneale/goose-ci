@@ -37,7 +37,7 @@ runs:
       shell: bash
 
     - name: Install additional tools
-      run: sudo apt-get update && sudo apt-get install -y ripgrep curl git jq wget               
+      run: sudo apt-get update && sudo apt-get install -y ripgrep curl git jq wget
       shell: bash
 
     - name: Copy plan file and entrypoint script
@@ -79,7 +79,7 @@ runs:
       shell: bash
 
     - name: Push changes to a new branch
-      if: steps.sanitize-task.outputs.branch_name != ''
+      if: ${{ env.BRANCH_NAME != '' }}
       run: git push origin ${{ env.BRANCH_NAME }}
       shell: bash
 
