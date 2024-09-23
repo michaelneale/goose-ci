@@ -18,6 +18,7 @@ while true; do
         rm validation.txt
         rm -f success
         rm -f failure
+        rm plan.yaml
         rm entrypoint.sh
         exit 0
     elif [ -f ./failure ]; then
