@@ -1,10 +1,12 @@
 name: Validate Goose Action
 
 on:
-  pull_request:
+  issues:
+    types: [labeled]    
 
 jobs:
-  validate-goose:
+  ask-goose:
+    if: github.event.label.name == 'goose'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -22,8 +24,14 @@ jobs:
       - name: Run Goose Action
         uses: ./.github/actions/goose-action
         with:
-          task_request: "Create a hello world ruby script and run it"
+          task_request: |
+            ${{ github.event.issue.title }}
+            
+            ${{ github.event.issue.body }}
+            
+            [Link to issue](${{ github.event.issue.html_url }})
           validation: "should see some output from running ruby"
           create_pr: 'true'
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
