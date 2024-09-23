@@ -1,6 +1,11 @@
-# Goose CI
+# goose CI
+
 
 Run goose as an action in CI. 
+
+> [!NOTE]
+> Some have suggested this be pronounced "goosey".
+
 
 The basics: 
 
@@ -23,3 +28,6 @@ It will do its best to complete the task, as part of your workflow (with the too
 To use this in your workflow, it is usually best to trigger off a labelled issue (but doesn't have to).
 In this repo there is [an example workflow](.github/workflows/goose-example-workflow.yml) which is triggered when you open an issue on this repo, and label it as "goose" (if it can solve it, a PR will result linked to that issue).
 The issue serves as input direction for goose. Note the `validation` parameter in the goose action, that is important so it knows how to check its work as it goes (and if it thinks it has ultimately succeeded).
+
+> [!WARNING]  
+> Always review goose changes that it proposes.
