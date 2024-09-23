@@ -5,6 +5,8 @@ echo "Task Request: $TASK_REQUEST" > task.txt
 echo "Validation: $VALIDATION" > validation.txt
  
 # Start the Goose session in the background
+cd $GITHUB_WORKSPACE
+
 goose session start --plan plan.yaml &
 GOOSE_PID=$!
 
