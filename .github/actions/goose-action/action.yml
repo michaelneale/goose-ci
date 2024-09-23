@@ -65,3 +65,4 @@ runs:
         body: This is an auto-generated PR with fixes by goose.
         labels: goose, automated pr
         branch: goose-fix
+        base: main
