@@ -2,8 +2,8 @@ name: Validate Goose Action
 
 on:
   issues:
-    types: [opened]    
-
+    types:
+      - opened
 jobs:
   ask-goose:
     runs-on: ubuntu-latest
