@@ -1,4 +1,4 @@
-name: Validate Goose Action
+name: Goose example workflow
 
 on:
   issues:
@@ -30,7 +30,7 @@ jobs:
             ${{ github.event.issue.body }}
             
             [Link to issue](${{ github.event.issue.html_url }})
-          validation: "if the task thinks it is ok"
+          validation: "please run test.py"
           create_pr: 'true'
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
