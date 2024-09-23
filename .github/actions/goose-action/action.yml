@@ -64,3 +64,4 @@ runs:
         labels: goose, automated pr
         branch: goose-fixing
         base: main
+        path: ${{ env.GITHUB_WORKSPACE }}

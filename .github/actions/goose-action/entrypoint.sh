@@ -7,6 +7,8 @@ echo "Validation: $VALIDATION" > validation.txt
 # Start the Goose session in the background
 cd $GITHUB_WORKSPACE
 
+ls -lah
+
 goose session start --plan plan.yaml &
 GOOSE_PID=$!
 
