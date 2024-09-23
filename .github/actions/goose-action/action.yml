@@ -4,10 +4,12 @@ inputs:
   task_request:
     description: 'Task request for Goose AI to complete'
     required: true
+  validation:
+    description: 'instructions for how to test to confirm changes are ok'
+    required: true
   create_pr:
     description: 'Optionally create a Pull Request'
-    required: false
-    default: 'false'
+    required: true
 
 runs:
   using: "composite"
@@ -52,35 +54,27 @@ runs:
       shell: bash
       env:
         TASK_REQUEST: ${{ inputs.task_request }}
+        VALIDATION: ${{ inputs.validation }}
 
-    - name: Check for changes
+    - name: commit changes and open PR
       if: ${{ inputs.create_pr == 'true' }}
       run: |
-        git config --global user.email "your-bot-email@example.com"
-        git config --global user.name "your-bot-name"
+        git config --global user.email "goose@block.xyz"
+        git config --global user.name "goose-ai"
         if [ -n "$(git status --porcelain)" ]; then
-          git add .
-          git commit -m "Goose Action made changes"
+          sanitized_branch_name=$(echo "${{ inputs.task_request }}" | tr -cd '[:alnum:]' | tr '[:upper:]' '[:lower:]' | cut -c 1-12)
+          echo "BRANCH_NAME=$sanitized_branch_name" >> $GITHUB_ENV
+          git checkout -B ${BRANCH_NAME}          
+          git commit -am "Goose made changes"
+          git push origin ${{ env.BRANCH_NAME }}          
         else
           echo "No changes detected"
         fi
       shell: bash
 
-    - name: Generate branch name from task request (first 12 characters)
-      if: ${{ inputs.create_pr == 'true' }}
-      id: sanitize-task
-      run: |
-        sanitized_branch_name=$(echo "${{ inputs.task_request }}" | tr -cd '[:alnum:]' | tr '[:upper:]' '[:lower:]' | cut -c 1-12)
-        echo "BRANCH_NAME=$sanitized_branch_name" >> $GITHUB_ENV
-      shell: bash
-
-    - name: Push changes to a new branch
-      if: ${{ env.BRANCH_NAME != '' }}
-      run: git push origin ${{ env.BRANCH_NAME }}
-      shell: bash
 
     - name: Create Pull Request
-      if: ${{ inputs.create_pr == 'true' }}
+      if: ${{ env.BRANCH_NAME }}
       uses: peter-evans/create-pull-request@v5
       with:
         branch: ${{ env.BRANCH_NAME }}
@@ -91,4 +85,3 @@ runs:
           
           **Task Request:**
           ${{ inputs.task_request }}
-        labels: "automated-pr"
