@@ -17,7 +17,7 @@ The basics:
 
 ```
 
-It will do its best to complete the task as part of your workflow (with the tools it has). If it succeeds in this case a PR will be opened based on the changes it made. If not - no PR results (and that job fails)
+It will do its best to complete the task, as part of your workflow (with the tools it has). If it succeeds in this case a PR will be opened based on the changes it made. If not, no PR results (and that job fails)
 ## Example workflow
 
 To use this in your workflow, it is usually best to trigger off a labelled issue (but doesn't have to).
