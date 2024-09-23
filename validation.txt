@@ -1,0 +1,1 @@
+Validation: should see some output from running ruby
