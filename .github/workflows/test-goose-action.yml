@@ -30,7 +30,7 @@ jobs:
             ${{ github.event.issue.body }}
             
             [Link to issue](${{ github.event.issue.html_url }})
-          validation: "should see some output from running ruby"
+          validation: "if the task thinks it is ok"
           create_pr: 'true'
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
