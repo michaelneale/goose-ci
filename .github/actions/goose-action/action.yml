@@ -56,34 +56,19 @@ runs:
         TASK_REQUEST: ${{ inputs.task_request }}
         VALIDATION: ${{ inputs.validation }}
 
-    - name: commit changes and open PR
-      if: ${{ inputs.create_pr == 'true' }}
-      run: |
-        git config --global user.email "goose@block.xyz"
-        git config --global user.name "goose-ai"
-        if [ -n "$(git status --porcelain)" ]; then
-          sanitized_branch_name=$(echo "${{ inputs.task_request }}" | tr -cd '[:alnum:]' | tr '[:upper:]' '[:lower:]' | cut -c 1-12)
-          echo $sanitized_branch_name
-          echo "BRANCH_NAME=$sanitized_branch_name" >> $GITHUB_ENV
-          git checkout -B $sanitized_branch_name
-          git add . 
-          git commit -m "Goose made changes"
-          git push origin $sanitized_branch_name
-        else
-          echo "No changes detected"
-        fi
+    - name: Set goose branch name
+      id: vars
       shell: bash
-
+      run: |
+        branch-name="goose/${{ github.head_ref }}"
+        echo "branch-name=$branch-name" >> $GITHUB_OUTPUT
 
     - name: Create Pull Request
-      if: ${{ env.BRANCH_NAME }}
-      uses: peter-evans/create-pull-request@v5
+      if: ${{ inputs.create_pr == 'true' }}
+      uses: peter-evans/create-pull-request@v7
       with:
-        branch: ${{ env.BRANCH_NAME }}
-        commit-message: "Goose Action made changes"
-        title: "Goose Action PR: ${{ inputs.task_request }}"
-        body: |
-          This PR contains the changes made by the Goose Action.
-          
-          **Task Request:**
-          ${{ inputs.task_request }}
+        commit-message: goose changes
+        title: Fixes by goose action
+        body: This is an auto-generated PR with fixes by goose.
+        labels: goose, automated pr
+        branch: ${{ steps.vars.outputs.branch-name }}
