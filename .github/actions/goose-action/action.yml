@@ -60,8 +60,10 @@ runs:
       with:
         commit-message: goose changes
         title: Fixes by goose action
-        body: This is an auto-generated PR with fixes by goose.
+        body: |
+            This is an auto-generated PR with fixes by goose.
+            Task: ${{ inputs.task_request }}
         labels: goose, automated pr
-        branch: goose-fixing
+        branch: goose-fix/${{ github.run_id }}
         base: main
         path: ${{ env.GITHUB_WORKSPACE }}
