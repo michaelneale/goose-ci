@@ -7,8 +7,6 @@ echo "Validation: $VALIDATION" > validation.txt
 # Start the Goose session in the background
 cd $GITHUB_WORKSPACE
 
-ls -lah
-
 goose session start --plan plan.yaml &
 GOOSE_PID=$!
 
@@ -16,6 +14,11 @@ GOOSE_PID=$!
 while true; do
     if [ -f ./success ]; then
         echo "Goose session succeeded"
+        rm task.txt
+        rm validation.txt
+        rm -f success
+        rm -f failure
+        rm entrypoint.sh
         exit 0
     elif [ -f ./failure ]; then
         echo "Goose session failed"
