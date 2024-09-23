@@ -22,7 +22,8 @@ jobs:
       - name: Run Goose Action
         uses: ./.github/actions/goose-action
         with:
-          task_request: "run ruby to check the version"
+          task_request: "Create a hello world ruby script and run it"
+          validation: "should see some output from running ruby"
           create_pr: 'true'
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
