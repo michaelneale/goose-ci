@@ -56,13 +56,6 @@ runs:
         TASK_REQUEST: ${{ inputs.task_request }}
         VALIDATION: ${{ inputs.validation }}
 
-    - name: Set goose branch name
-      id: vars
-      shell: bash
-      run: |
-        branch-name="goose/${{ github.head_ref }}"
-        echo "branch-name=$branch-name" >> $GITHUB_OUTPUT
-
     - name: Create Pull Request
       if: ${{ inputs.create_pr == 'true' }}
       uses: peter-evans/create-pull-request@v7
@@ -71,4 +64,4 @@ runs:
         title: Fixes by goose action
         body: This is an auto-generated PR with fixes by goose.
         labels: goose, automated pr
-        branch: ${{ steps.vars.outputs.branch-name }}
+        branch: goose-fix
