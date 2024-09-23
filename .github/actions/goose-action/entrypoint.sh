@@ -1,15 +1,12 @@
 #!/bin/sh
 
 # Access the 'task_request' input
-echo "Task Request: $TASK_REQUEST"
-
-# Replace newlines with spaces in TASK_REQUEST
-TASK_REQUEST=$(echo $TASK_REQUEST | tr '\n' ' ')
-
-# Replace {TASK} in plan.yaml with the TASK_REQUEST value
-sed -i "s/{TASK}/$TASK_REQUEST/g" plan.yaml
-
+echo "Task Request: $TASK_REQUEST" > task.txt
+echo "Validation: $VALIDATION" > validation.txt
+ 
 # Start the Goose session in the background
+cd $GITHUB_WORKSPACE
+
 goose session start --plan plan.yaml &
 GOOSE_PID=$!
 
@@ -17,6 +14,12 @@ GOOSE_PID=$!
 while true; do
     if [ -f ./success ]; then
         echo "Goose session succeeded"
+        rm task.txt
+        rm validation.txt
+        rm -f success
+        rm -f failure
+        rm plan.yaml
+        rm entrypoint.sh
         exit 0
     elif [ -f ./failure ]; then
         echo "Goose session failed"

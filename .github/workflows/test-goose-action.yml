@@ -1,12 +1,11 @@
 name: Validate Goose Action
 
 on:
-  push:
-  pull_request:
-  workflow_dispatch:
-
+  issues:
+    types:
+      - opened
 jobs:
-  validate-goose:
+  ask-goose:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -24,6 +23,14 @@ jobs:
       - name: Run Goose Action
         uses: ./.github/actions/goose-action
         with:
-          task_request: "run ruby to check the version"
+          task_request: |
+            ${{ github.event.issue.title }}
+            
+            ${{ github.event.issue.body }}
+            
+            [Link to issue](${{ github.event.issue.html_url }})
+          validation: "should see some output from running ruby"
+          create_pr: 'true'
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+

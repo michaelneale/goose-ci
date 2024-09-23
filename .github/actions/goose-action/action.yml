@@ -1,15 +1,19 @@
 name: "Goose AI Action"
-description: "Sets up Goose AI with pipx"
+description: "Sets up Goose AI with pipx and optionally creates a PR"
 inputs:
   task_request:
     description: 'Task request for Goose AI to complete'
+    required: true
+  validation:
+    description: 'instructions for how to test to confirm changes are ok'
+    required: true
+  create_pr:
+    description: 'Optionally create a Pull Request'
     required: true
 
 runs:
   using: "composite"
   steps:
-    - name: Check out the repository
-      uses: actions/checkout@v2
 
     - name: Set up Python
       uses: actions/setup-python@v2
@@ -33,7 +37,7 @@ runs:
       shell: bash
 
     - name: Install additional tools
-      run: sudo apt-get update && sudo apt-get install -y ripgrep curl git jq wget               
+      run: sudo apt-get update && sudo apt-get install -y ripgrep curl git jq wget
       shell: bash
 
     - name: Copy plan file and entrypoint script
@@ -48,5 +52,18 @@ runs:
       shell: bash
       env:
         TASK_REQUEST: ${{ inputs.task_request }}
+        VALIDATION: ${{ inputs.validation }}
 
-      
+    - name: Create Pull Request
+      if: ${{ inputs.create_pr == 'true' }}
+      uses: peter-evans/create-pull-request@v7
+      with:
+        commit-message: goose changes
+        title: Fixes by goose action
+        body: |
+            This is an auto-generated PR with fixes by goose.
+            Task: ${{ inputs.task_request }}
+        labels: goose, automated pr
+        branch: goose-fix/${{ github.run_id }}
+        base: main
+        path: ${{ env.GITHUB_WORKSPACE }}
