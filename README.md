@@ -1,15 +1,22 @@
 # goose CI
 
 
-Run goose as an action in CI. 
+Run goose as an action in CI to take on tasks in the background for you. 
+
 
 > [!NOTE]
 > Some have suggested this be pronounced "goosey".
 
+For example open an issue and label it: 
+![Screenshot 2024-09-23 at 6 27 57 PM](https://github.com/user-attachments/assets/b41d39d3-c6da-4f64-8673-96af75348036)
 
-The basics: 
+Get a PR later with the fix: 
+![Screenshot 2024-09-23 at 6 28 08 PM](https://github.com/user-attachments/assets/e7204eed-e379-4507-8cf4-77362a1ad243)
+
+configuration: 
 
 ```yaml
+
 
       - name: Run Goose Action
         uses: ./.github/actions/goose-action
@@ -23,6 +30,7 @@ The basics:
 ```
 
 It will do its best to complete the task, as part of your workflow (with the tools it has). If it succeeds in this case a PR will be opened based on the changes it made. If not, no PR results (and that job fails)
+
 ## Example workflow
 
 To use this in your workflow, it is usually best to trigger off a labelled issue (but doesn't have to).
