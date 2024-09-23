@@ -2,11 +2,10 @@ name: Validate Goose Action
 
 on:
   issues:
-    types: [labeled]    
+    types: [opened]    
 
 jobs:
   ask-goose:
-    if: github.event.label.name == 'goose'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
