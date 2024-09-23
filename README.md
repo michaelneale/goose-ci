@@ -1,7 +1,6 @@
 # goose CI
 
+An example of how to use goose in your CI, triggered from a github issue. 
 
-Run goose as an action in CI to take on tasks in the background for you. 
-
-Tests: https://github.com/michaelneale/goose-fix-it-action
+Please refer to: https://github.com/michaelneale/goose-fix-it-action for the action itself.
 
