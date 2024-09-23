@@ -64,7 +64,7 @@ runs:
         if [ -n "$(git status --porcelain)" ]; then
           sanitized_branch_name=$(echo "${{ inputs.task_request }}" | tr -cd '[:alnum:]' | tr '[:upper:]' '[:lower:]' | cut -c 1-12)
           echo "BRANCH_NAME=$sanitized_branch_name" >> $GITHUB_ENV
-          git checkout -B ${BRANCH_NAME}          
+          git checkout -B ${{ env.BRANCH_NAME }}
           git commit -am "Goose made changes"
           git push origin ${{ env.BRANCH_NAME }}          
         else
