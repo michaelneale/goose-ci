@@ -1,7 +1,8 @@
 # goose CI
 
+Fly with grace upon the winds of automation
+Run goose as an ethereal presence within your CI
+Handling tasks amidst the clouds in seamless dance
 
-Run goose as an action in CI to take on tasks in the background for you. 
-
-Tests: https://github.com/michaelneale/goose-fix-it-action
+Tests flutter here: https://github.com/michaelneale/goose-fix-it-action
 
