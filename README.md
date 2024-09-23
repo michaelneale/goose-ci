@@ -1,6 +1,6 @@
 # Goose CI
 
-Run Goose as an action in CI. 
+Run goose as an action in CI. 
 
 The basics: 
 
