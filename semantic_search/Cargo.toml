@@ -1,0 +1,8 @@
+[package]
+name = "semantic_search"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rayon = "1.5"
+ignore = "0.4"
