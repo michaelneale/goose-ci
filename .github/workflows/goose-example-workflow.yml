@@ -30,7 +30,7 @@ jobs:
             ${{ github.event.issue.body }}
             
             [Link to issue](${{ github.event.issue.html_url }})
-          validation: "please run test.py"
+          validation: "test the cli created with cargo"
           create_pr: 'true'
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
